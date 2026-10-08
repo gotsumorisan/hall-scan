@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { specs } from "../machine-specs/registry";
+import { BackupPanel } from "../components/BackupPanel";
 export function More() {
   return (
     <>
@@ -32,13 +33,13 @@ export function More() {
           </p>
         ))}
         <p>
-          EVは添付資料の第三者シミュレーション（信頼度C）。正式候補ラインを採用し、交換率・投資方法の列を分けます。複数ルートを合算しません。
+          EV金額があるルートは添付資料の第三者シミュレーション（信頼度C）。概算の候補目安だけのルートには個別EV金額を表示しません。複数ルートを合算しません。
         </p>
         <p>
           最新解析の自動取得はありません。実戦当日の解析・店舗条件と照合してから判定してください。
         </p>
         <p className="fine">
-          不足：非等価の女神スルーEV、モード示唆の金額、128G引き戻し単独EV、資金切れ確率・消化時間分布。TODO_NEEDS_SOURCE。
+          リコリス・リコイルは固定Aラインを作らず、状態別のEV資料が揃うまでAを出しません。全機種とも、特殊示唆の金額、資金切れ確率・消化時間分布など、未提供の値を補いません。
         </p>
       </section>
       <section className="card">
@@ -53,6 +54,7 @@ export function More() {
           保存はこの端末・ブラウザ内。データを消す操作やブラウザの保存領域削除で記録は失われます。
         </p>
       </section>
+      <BackupPanel />
       <Link className="button wide" to="/review">
         REVIEWへ →
       </Link>

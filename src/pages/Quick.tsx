@@ -17,7 +17,7 @@ export function Quick() {
       <div className="page-heading compact">
         <span className="eyebrow">02 / MACHINE QUICK</span>
         <h1>{spec.name}</h1>
-        <p>{m.meta.seat} · まず、4つの情報を分けて見る。</p>
+        <p>{m.meta.seat} · 表示・履歴・示唆を分けて見る。</p>
       </div>
       <div className="quick-metrics">
         {spec.fields

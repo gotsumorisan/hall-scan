@@ -44,7 +44,7 @@ export function reevaluate(
       ],
       action:
         live.phase === "followup"
-          ? "幕間／運命の一劇を確認。PUSH・タッチ・次状態を記録。"
+          ? "終了後の表示・引き戻し・次状態を確認し、対応するイベントを記録。"
           : entry.decision.action,
     };
   return latest;

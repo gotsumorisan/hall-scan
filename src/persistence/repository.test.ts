@@ -163,31 +163,27 @@ describe("永続化と原子的な上限", () => {
     const name = db.name;
     db.close();
     const old = new (await import("dexie")).default(name);
-    old
-      .version(1)
-      .stores({
-        days: "id, businessDate, ended",
-        visits: "id, dailyId",
-        machines: "id, dailyId, visitId",
-        entries: "id, machineStateId, dailyId",
-        decisions: "id, machineStateId",
-        lives: "id, dailyId, status",
-        events: "id, liveSessionId",
-        reviews: "id, dailyId",
-      });
-    await old
-      .table("days")
-      .add({
-        ...VERSIONS,
-        schemaVersion: 1,
-        id: "2026-10-07",
-        businessDate: "2026-10-07",
-        dailyInvestment: 12000,
-        maxDailyInvestment: 30000,
-        visits: [],
-        activeLiveSessionId: null,
-        ended: false,
-      });
+    old.version(1).stores({
+      days: "id, businessDate, ended",
+      visits: "id, dailyId",
+      machines: "id, dailyId, visitId",
+      entries: "id, machineStateId, dailyId",
+      decisions: "id, machineStateId",
+      lives: "id, dailyId, status",
+      events: "id, liveSessionId",
+      reviews: "id, dailyId",
+    });
+    await old.table("days").add({
+      ...VERSIONS,
+      schemaVersion: 1,
+      id: "2026-10-07",
+      businessDate: "2026-10-07",
+      dailyInvestment: 12000,
+      maxDailyInvestment: 30000,
+      visits: [],
+      activeLiveSessionId: null,
+      ended: false,
+    });
     old.close();
     db = new HallDB(name);
     repo = new Repository(db);

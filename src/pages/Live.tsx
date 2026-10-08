@@ -107,7 +107,7 @@ function LiveForm({
           </p>
         </section>
         <section className="card">
-          <h2>現在の4つのカウンタ</h2>
+          <h2>現在のカウンタ</h2>
           <dl className="metric-list">
             {spec.fields
               .filter((f) => f.kind === "number")
@@ -127,14 +127,13 @@ function LiveForm({
         <form
           onSubmit={async (e) => {
             e.preventDefault();
-            const payload =
-              type === "counters"
-                ? Object.fromEntries(
-                    (event.fields ?? []).map((f) => [f.key, raw[f.key]]),
-                  )
-                : type === "loss_note"
-                  ? { note }
-                  : {};
+            const payload = event.fields
+              ? Object.fromEntries(
+                  (event.fields ?? []).map((f) => [f.key, raw[f.key]]),
+                )
+              : type === "loss_note"
+                ? { note }
+                : {};
             await run(() =>
               repository.liveEvent(live.id, type, payload, evidence, context),
             );

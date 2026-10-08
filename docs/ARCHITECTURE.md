@@ -12,7 +12,7 @@ flowchart TD
   D --> S[MachineSpec契約]
   L --> S
   S --> K[からくり2 Spec]
-  S --> N[将来の9機種 Spec]
+  S --> N[独立した9機種 Spec]
   R --> DB[(Dexie / IndexedDB)]
 ```
 
@@ -55,6 +55,12 @@ rules/specが変わった既存Aは開始拒否し、再判定で現在版へ更
 7. guideで入力field・イベント・天井・警告・見る場所を宣言し、specをregistryに登録。
 8. spec単体テストとRepositoryを通したvertical sliceを追加。共通ハードルール60件相当は全機種追加後も維持。
 
-対象IDは `kabaneri_kaimon / tokyo_ghoul / monkey_turn_v / lycoris_recoil / sengoku_otome_5 / valvrave_2 / magia_record / hokuto_tensei_2 / enen_2`。設定狙いの試行数はself_observed専用の分母を独立に設計し、前任者データを合成しない。今回その統計機能は実装していません。
+継続版で追加済みのIDは `kabaneri_kaimon / tokyo_ghoul / monkey_turn_v / lycoris_recoil / sengoku_otome_5 / valvrave_2 / magia_record / hokuto_tensei_2 / enen_2`。設定狙いの試行数はself_observed専用の分母を独立に設計し、前任者データを合成しない。今回その統計機能は実装していません。
 
 UIがspecの宣言を表示するため、機種固有入力やイベントは共通コンポーネントで追加されます。複雑な将来UIが必要な場合も描画adapterだけを追加し、判定ロジックを移動しません。
+
+## 継続版の保存機能
+
+DailyResearchOverrideは任意のresearchOverridesとしてDailySessionに保存し、旧schema v2の日も読み込めます。追加インデックスを必要としない後方互換フィールドです。確認情報は営業日限定で、Engineの基本ルールを書き換えません。
+
+backup.tsは8テーブルと当日確認をtransactionで読み書きし、参照・投資合計・保存版・snapshotの根拠を検証します。既存IDの異なる記録を上書きせず、LIVE中の復元を拒否します。

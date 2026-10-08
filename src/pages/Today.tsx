@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { repository, useSession } from "../app/SessionProvider";
+import { StoreResearchPanel } from "../components/StoreResearchPanel";
 export function Today() {
   const { data, run, busy } = useSession(),
     navigate = useNavigate(),
@@ -95,6 +96,7 @@ export function Today() {
           )}
         </section>
       </div>
+      <StoreResearchPanel />
       <section className="principle">
         <span className="principle-icon">◇</span>
         <div>

@@ -18,7 +18,7 @@ export function Field({
           type="number"
           min="0"
           step="1"
-          max={field.key === "goddessSkipCount" ? 4 : 100000}
+          max={field.max ?? 100000}
           inputMode="numeric"
           placeholder="不明"
           value={value === null || value === undefined ? "" : String(value)}
@@ -34,7 +34,14 @@ export function Field({
         >
           {field.options?.map((o) => (
             <option key={o.value} value={o.value}>
-              {o.label}
+              {(
+                {
+                  confirmed: "根拠を確認済み",
+                  possible: "可能性あり",
+                  contradicted: "該当しないことを確認",
+                  unknown: "不明",
+                } as Record<string, string>
+              )[o.label] ?? o.label}
             </option>
           ))}
         </select>

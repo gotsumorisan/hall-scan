@@ -55,6 +55,7 @@ export interface EVRoute {
   goal: string;
   resetOnly?: boolean;
   missingSource?: string;
+  sourceThresholdMet?: boolean;
 }
 export interface Decision {
   grade: Grade;
@@ -77,6 +78,19 @@ export interface DailySession extends Versioned {
   visits: string[];
   activeLiveSessionId: string | null;
   ended: boolean;
+  researchOverrides?: DailyResearchOverride[];
+}
+export interface DailyResearchOverride {
+  id: string;
+  businessDate: string;
+  storeName: string;
+  exchange: Context["exchange"];
+  closingTime: string;
+  installedMachineIds: string[];
+  verification: "confirmed" | "unknown";
+  sourceUrl: string;
+  checkedAt: string;
+  note: string;
 }
 export interface StoreVisitSession extends Versioned {
   id: string;
@@ -153,6 +167,7 @@ export interface InputField {
   label: string;
   help: string;
   kind: "number" | "select";
+  max?: number;
   options?: { value: string; label: string }[];
 }
 export interface EventDefinition {

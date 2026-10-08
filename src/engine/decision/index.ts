@@ -30,7 +30,12 @@ export function decide(
   );
   const selectedRoute =
     routes
-      .filter((r) => r.eligible && r.evYen !== null && r.evYen >= 2000)
+      .filter(
+        (r) =>
+          r.eligible &&
+          ((r.evYen !== null && r.evYen >= 2000) ||
+            r.sourceThresholdMet === true),
+      )
       .sort((a, b) => (b.evYen ?? 0) - (a.evYen ?? 0))[0] ?? null;
   const result = (
     grade: Decision["grade"],
@@ -126,7 +131,9 @@ export function decide(
         selectedRoute.goal,
       ),
       reasons: [
-        `${selectedRoute.label}を単独採用。参考EV +${selectedRoute.evYen?.toLocaleString()}円（信頼度C）。`,
+        selectedRoute.evYen === null
+          ? `${selectedRoute.label}を単独採用。資料の+2,000円級候補目安に該当。個別EV金額は未算出。`
+          : `${selectedRoute.label}を単独採用。参考EV +${selectedRoute.evYen.toLocaleString()}円（信頼度C）。`,
         "資金・閉店・当日の情報を確認済み。",
       ],
     };

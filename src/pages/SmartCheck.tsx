@@ -120,7 +120,7 @@ function CheckForm({ machine: m }: { machine: MachineState }) {
                 <section className="card">
                   <div className="section-head">
                     <h2>台の表示・履歴</h2>
-                    <span className="tag">4 COUNTERS</span>
+                    <span className="tag">表示と履歴を分けて記録</span>
                   </div>
                   <label className="field">
                     台番号

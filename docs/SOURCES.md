@@ -10,7 +10,7 @@
 | 02_ASSET_MANIFEST.md                                              | 全画像reference-only・配布対象外                                  |
 | Lパチスロ_からくりサーカス2_専門リファレンス_v1.0_正式版 (1).docx | §2のカウンタ、§4の証拠、§12のEV/正式ライン、§14〜16の入力と再判定 |
 | current-sourceの引継ぎメモ v1.0.txt                               | 目的・資金・交換・閉店の確認原則                                  |
-| legacy-prior-handoff                                              | 数値/実装として不採用                                             |
+| legacy-prior-handoff                                              | 旧設計・コードの矛盾する数値と途中案は不採用                      |
 
 機種資料からテキスト抽出した完全な段落は `sources/karakuri-specialist-v1.0.txt` に保存。最上位仕様も `sources/HALL_SCAN_CODEX_HANDOFF_v1.0.md` にコピーしました。これらはpublicフォルダ外で、Viteの配布bundleへ含まれません。
 
@@ -21,3 +21,7 @@
 - [Vite PWA guide](https://vite-pwa-org.netlify.app/guide/)
 
 資料の数値は2026-08-30基準で固定。実戦当日の解析更新の自動検証は未実装であり、画面でも確認事項として扱っています。
+
+## 継続版の追加資料
+
+同梱10machines_v2.md（2026-10-07）と、海門・東京喰種・モンキーVの専門リファレンスを照合し、現行handoffと整合する入力・天井・概算候補ラインを採用しました。個別EVの金額がない概算ルートはnullを保持し、金額を生成しません。原文は公開せず、詳細は[継続報告](CONTINUATION_REPORT.md)に記載しています。

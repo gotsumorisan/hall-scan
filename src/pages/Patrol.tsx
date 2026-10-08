@@ -11,7 +11,8 @@ export const patrolLabels = {
 export function Patrol() {
   const { data, run, busy } = useSession(),
     navigate = useNavigate(),
-    [seat, setSeat] = useState("");
+    [seat, setSeat] = useState(""),
+    [selectedSpec, setSelectedSpec] = useState(specs[0].id);
   if (!data) return null;
   const visit = data.visits.find((v) => !v.endedAt);
   return (
@@ -42,55 +43,70 @@ export function Patrol() {
         <div className="notice">本日の巡回は終了しました。</div>
       ) : (
         <>
-          {specs.map((spec) => (
-            <section className="card machine-card" key={spec.id}>
-              <div className="machine-art" aria-hidden="true">
-                <div className="orbit" />
-                <span>
-                  KC<span>2</span>
-                </span>
-                <small>MACHINE SPEC / 001</small>
-              </div>
-              <div className="machine-summary">
-                <span className="tag purple">実装済み · SMART SLOT</span>
-                <h2>{spec.name}</h2>
-                <p>{spec.guide.screening}</p>
-                <div className="metric-tags">
-                  <span>液晶G</span>
-                  <span>女神間 実G</span>
-                  <span>AT間 実G</span>
-                  <span>女神スルー</span>
+          <label className="field">
+            機種を選ぶ
+            <select
+              aria-label="機種を選ぶ"
+              value={selectedSpec}
+              onChange={(e) => setSelectedSpec(e.target.value)}
+            >
+              {specs.map((spec) => (
+                <option key={spec.id} value={spec.id}>
+                  {spec.name}
+                </option>
+              ))}
+            </select>
+          </label>
+          {specs
+            .filter((spec) => spec.id === selectedSpec)
+            .map((spec) => (
+              <section className="card machine-card" key={spec.id}>
+                <div className="machine-art" aria-hidden="true">
+                  <div className="orbit" />
+                  <span>
+                    {String(specs.indexOf(spec) + 1).padStart(2, "0")}
+                  </span>
+                  <small>HALL SCAN / MACHINE</small>
                 </div>
-                <label className="field">
-                  台番号（任意）
-                  <input
-                    aria-label="台番号"
-                    inputMode="numeric"
-                    placeholder="例：128"
-                    value={seat}
-                    onChange={(e) => setSeat(e.target.value)}
-                  />
-                </label>
-                <button
-                  className="primary"
-                  disabled={busy}
-                  onClick={async () => {
-                    const m = await run(() =>
-                      repository.createMachine(
-                        data.day.id,
-                        visit.id,
-                        spec.id,
-                        seat,
-                      ),
-                    );
-                    if (m) navigate(`/machine/${m.id}/quick`);
-                  }}
-                >
-                  見る場所を確認 →
-                </button>
-              </div>
-            </section>
-          ))}
+                <div className="machine-summary">
+                  <span className="tag purple">実装済み · SMART SLOT</span>
+                  <h2>{spec.name}</h2>
+                  <p>{spec.guide.screening}</p>
+                  <div className="metric-tags">
+                    {spec.guide.primary.map((label) => (
+                      <span key={label}>{label}</span>
+                    ))}
+                  </div>
+                  <label className="field">
+                    台番号（任意）
+                    <input
+                      aria-label="台番号"
+                      inputMode="numeric"
+                      placeholder="例：128"
+                      value={seat}
+                      onChange={(e) => setSeat(e.target.value)}
+                    />
+                  </label>
+                  <button
+                    className="primary"
+                    disabled={busy}
+                    onClick={async () => {
+                      const m = await run(() =>
+                        repository.createMachine(
+                          data.day.id,
+                          visit.id,
+                          spec.id,
+                          seat,
+                        ),
+                      );
+                      if (m) navigate(`/machine/${m.id}/quick`);
+                    }}
+                  >
+                    見る場所を確認 →
+                  </button>
+                </div>
+              </section>
+            ))}
         </>
       )}
       <section className="card subtle">
@@ -115,7 +131,7 @@ export function Patrol() {
         )}
       </section>
       <p className="fine">
-        残り9機種は次の段階で追加します。前作の数値を流用しません。
+        10機種の表示・履歴を独立して記録します。特殊状態の定量根拠が不足する場合はAにしません。
       </p>
     </>
   );

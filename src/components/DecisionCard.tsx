@@ -20,6 +20,17 @@ export function DecisionCard({ decision }: { decision: Decision }) {
         <span>次の行動</span>
         <p>{decision.action}</p>
       </div>
+      {decision.selectedRoute && (
+        <details>
+          <summary>採用した根拠・計算前提</summary>
+          <p>{decision.selectedRoute.basis}</p>
+          {decision.selectedRoute.evYen === null && (
+            <p>
+              概算の候補目安です。個別の期待値金額を算出したものではありません。
+            </p>
+          )}
+        </details>
+      )}
     </section>
   );
 }
