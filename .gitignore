@@ -1,0 +1,9 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+.DS_Store
+*.local
+*.tsbuildinfo
+# User-provided source/reference documents stay local; do not publish them.
+docs/sources/
